@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Post as PostComponent } from '../components/Post'
+import { Comment } from '../components/Comment'
 
 class Search extends Component {
     render() {
@@ -8,10 +10,24 @@ class Search extends Component {
             <div>
                 <h3>Results:</h3>
                 {items.map(item => {
-                    const isPost = !!item.userId,
-                        key = isPost ? `${item.userId}_${item.id}` : `${item.postId}_${item.id}`
+                    const key = item.userId ? `${item.userId}_${item.id}` : `${item.postId}_${item.id}`
 
-                    return <div key={key}>{item.body}</div>
+                    return (
+                        <div key={key}>
+                            {item.userId ? (
+                                <PostComponent
+                                    title={item.title}
+                                    body={item.body}
+                                />
+                            ) : (
+                                <Comment
+                                    title={item.name}
+                                    body={item.body}
+                                    email={item.email}
+                                />
+                            )}
+                        </div>
+                    )
                 })}
             </div>
         )

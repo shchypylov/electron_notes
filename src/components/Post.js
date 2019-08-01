@@ -6,14 +6,16 @@ export function Post({ title, body, active, clickHandler, editHandler, deleteHan
             <h3>{title}</h3>
             <div>
                 {body}
-                <div>
-                    <button onClick={editHandler} className="btn">
-                        Edit
-                    </button>
-                    <button onClick={deleteHandler} className="btn">
-                        Delete
-                    </button>
-                </div>
+                {editHandler && deleteHandler && (
+                    <div>
+                        <button onClick={editHandler} className="btn">
+                            Edit
+                        </button>
+                        <button onClick={deleteHandler} className="btn">
+                            Delete
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     )
