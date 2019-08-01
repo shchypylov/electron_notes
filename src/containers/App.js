@@ -56,9 +56,9 @@ class App extends Component {
 
                 <div className="list-group">{this.renderPosts()}</div>
 
-                {posts.posts.length > 20 && (
+                {posts.posts.length > 10 && (
                     <button className="btn btn-info my-3 mx-auto" onClick={this.getMorePosts}>
-                        Get more comments
+                        Get more posts
                     </button>
                 )}
             </div>

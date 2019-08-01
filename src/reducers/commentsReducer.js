@@ -7,8 +7,6 @@ export function commentsReducer(
     },
     action
 ) {
-    console.log('action.type --- ', action.type)
-
     switch (action.type) {
         case constants.FETCH_COMMENTS_FOR_POST:
             return {
@@ -17,7 +15,7 @@ export function commentsReducer(
             }
 
         case constants.EDIT_COMMENT:
-            const comments = state.map(comment => {
+            const comments = state.comments.map(comment => {
                 if (comment.id === action.payload.id) {
                     comment.name = action.payload.name
                     comment.body = action.payload.body

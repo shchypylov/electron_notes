@@ -71,7 +71,7 @@ export const addPost = (title, body) => async dispatch => {
     })
 }
 
-export const editComment = (id, name, body) => {
+export const editComment = (name, body, id) => {
     return {
         type: constants.EDIT_COMMENT,
         payload: {

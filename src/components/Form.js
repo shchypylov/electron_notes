@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
-import { addComment, addPost, editPost } from '../actions'
+import { addComment, addPost, editPost, editComment } from '../actions'
 
 const typeToInputPlaceholders = {
     addPost: {
@@ -16,6 +16,10 @@ const typeToInputPlaceholders = {
     addComment: {
         title: 'Comment title',
         content: 'Comment content',
+    },
+    editComment: {
+        title: 'New comment title',
+        content: 'New content',
     },
 }
 
@@ -34,7 +38,7 @@ class Form extends Component {
 
     submitNewValues = () => {
         const { newPostTitle: title, newPostBody: body } = this.state,
-            { addPost, editPost, addComment, type, id } = this.props
+            { addPost, editPost, addComment, editComment, type, id } = this.props
 
         switch (type) {
             case 'addPost':
@@ -45,6 +49,9 @@ class Form extends Component {
                 break
             case 'addComment':
                 addComment(title, body)
+                break
+            case 'editComment':
+                editComment(title, body, id)
                 break
             default:
                 return true
@@ -110,6 +117,6 @@ class Form extends Component {
 export default withRouter(
     connect(
         null,
-        { addPost, editPost, addComment }
+        { addPost, editPost, addComment, editComment }
     )(Form)
 )

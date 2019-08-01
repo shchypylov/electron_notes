@@ -59,47 +59,33 @@ class Comments extends Component {
         const { comments } = this.props,
             { editCommentId } = this.state
 
-        console.log('comments --- ', comments)
-
         return (
-            <div>
+            <>
                 <Form buttonTitle="Add comment" type="addComment" />
-                {comments.comments.slice(0, comments.loaded).map(({ postId, id, email, name, body }) => {
-                    return (
-                        <div key={`${postId}_${id}`}>
-                            <Comment
-                                editHandler={this.editHandler(id)}
-                                deleteHandler={this.deleteHandler(id)}
-                                title={name}
-                                body={body}
-                                email={email}
-                            />
-                            {editCommentId && (
-                                <div>
-                                    <input
-                                        onChange={e =>
-                                            this.setState({
-                                                editCommentTitle: e.target.value,
-                                            })
-                                        }
-                                        type="text"
-                                    />
-                                    <input
-                                        onChange={e =>
-                                            this.setState({
-                                                editCommentBody: e.target.value,
-                                            })
-                                        }
-                                        type="text"
-                                    />
-                                    <button onClick={this.submitCommentEdit}>Save</button>
-                                </div>
-                            )}
-                        </div>
-                    )
-                })}
-                <button onClick={this.getMoreComments}>Get more comments</button>
-            </div>
+
+                <div className="list-group">
+                    {comments.comments.slice(0, comments.loaded).map(({ postId, id, email, name, body }) => {
+                        return (
+                            <div key={`${postId}_${id}`} className='list-group-item'>
+                                <Comment
+                                    editHandler={this.editHandler(id)}
+                                    deleteHandler={this.deleteHandler(id)}
+                                    title={name}
+                                    body={body}
+                                    email={email}
+                                />
+                                {editCommentId === id && <Form id={editCommentId} type="editComment" formIsVisible />}
+                            </div>
+                        )
+                    })}
+
+                    {comments.comments.length > 20 && (
+                        <button className="btn btn-info my-3 mx-auto" onClick={this.getMoreComments}>
+                            Get more comments
+                        </button>
+                    )}
+                </div>
+            </>
         )
     }
 }
