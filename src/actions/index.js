@@ -99,6 +99,18 @@ export const getMorePosts = () => {
     }
 }
 
+export const getMoreResults = () => {
+    return {
+        type: constants.GET_MORE_RESULTS,
+    }
+}
+
+export const resetSearchLoaded = () => {
+    return {
+        type: constants.RESET_SEARCH_LOADED,
+    }
+}
+
 export const addComment = (name, body, id) => {
     return {
         type: constants.ADD_COMMENT,

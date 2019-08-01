@@ -8,7 +8,7 @@ export function Comment({ title, body, email, editHandler, deleteHandler }) {
             <p>{body}</p>
 
             {editHandler && deleteHandler && (
-                <div>
+                <div className='mt-3'>
                     <button className="btn btn-outline-warning mr-3" onClick={editHandler}>
                         Edit comment
                     </button>
@@ -20,3 +20,9 @@ export function Comment({ title, body, email, editHandler, deleteHandler }) {
         </div>
     )
 }
+
+
+// todo:
+// ids for added posts and comments
+// pesistence on reload
+// solve issue with mount new posts

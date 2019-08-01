@@ -2,12 +2,12 @@ import React from 'react'
 
 export function Post({ title, body, clickHandler, editHandler, deleteHandler }) {
     return (
-        <div onClick={clickHandler} className='my-4'>
+        <div onClick={clickHandler} className="mt-4 bg-light text-dark p-4">
             <h2>{title}</h2>
             <div>
                 {body}
                 {editHandler && deleteHandler && (
-                    <div className='mt-3'>
+                    <div className="mt-3">
                         <button className="btn btn-outline-warning mr-3" onClick={editHandler}>
                             Edit
                         </button>

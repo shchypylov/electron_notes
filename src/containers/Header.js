@@ -14,9 +14,11 @@ class Header extends Component {
         const { searchSubmit, history } = this.props,
             { searchInput } = this.state
 
-        searchSubmit(searchInput)
+        if (searchInput.trim().length > 0) {
+            searchSubmit(searchInput)
 
-        history.push('/search')
+            history.push('/search')
+        }
     }
 
     render() {

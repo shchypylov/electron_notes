@@ -69,8 +69,8 @@ class Form extends Component {
             { buttonTitle, type } = this.props
 
         return (
-            <div className="row my-3">
-                <div className="col-8 mx-auto d-flex flex-column">
+            <div className="row">
+                <div className="col-8 mx-auto d-flex flex-column mt-3">
                     {buttonTitle && (
                         <button className="btn btn-success my-3 mx-auto" onClick={this.toggleFormVisibility}>
                             {buttonTitle}
@@ -103,7 +103,7 @@ class Form extends Component {
                                     type="text"
                                 />
                             </div>
-                            <button className="btn btn-primary mx-auto" onClick={this.submitNewValues}>
+                            <button className="btn btn-primary mx-auto mb-3" onClick={this.submitNewValues}>
                                 Submit
                             </button>
                         </>
