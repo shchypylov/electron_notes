@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
-import Post from '../components/Post'
 import { fetchPosts, editPost, deletePost, fetchCommentsForPost, addPost } from '../actions'
-import Comment from '../components/Comment'
 import { Link, withRouter } from 'react-router-dom'
 
 class App extends Component {
@@ -11,8 +8,6 @@ class App extends Component {
         activePostId: null,
         editPostId: null,
         addPostActive: false,
-        titleInput: '',
-        bodyInput: '',
         newPostTitle: '',
         newPostBody: '',
     }
@@ -25,22 +20,6 @@ class App extends Component {
         this.props.fetchPosts()
     }
 
-    expandPost = id => () => {
-        const { fetchCommentsForPost } = this.props
-
-        this.setState({
-            activePostId: id,
-        })
-
-        fetchCommentsForPost(id)
-    }
-
-    editPost = id => () => {
-        this.setState({
-            editPostId: id,
-        })
-    }
-
     deletePost = id => () => {
         const { deletePost } = this.props
 
@@ -51,13 +30,6 @@ class App extends Component {
         })
     }
 
-    renderComments = () => {
-        const { comments } = this.props
-
-        return comments.slice(0, 20).map(({ postId, id, email, name, body }) => {
-            return <Comment title={name} body={body} email={email} key={`${postId}_${id}`} />
-        })
-    }
 
     renderPosts = () => {
         const { posts } = this.props,
@@ -82,17 +54,6 @@ class App extends Component {
         })
     }
 
-    saveChanges = () => {
-        const { editPostId, titleInput, bodyInput } = this.state,
-            { editPost } = this.props
-
-        editPost(editPostId, titleInput, bodyInput)
-
-        this.setState({
-            editPostId: null,
-        })
-    }
-
     addNewPost = () => {
         this.setState({
             addPostActive: true,
@@ -104,6 +65,12 @@ class App extends Component {
             { addPost } = this.props
 
         addPost(title, body)
+
+        this.setState({
+            newPostTitle: '',
+            newPostBody: '',
+            addPostActive: false
+        })
     }
 
     render() {

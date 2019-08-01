@@ -16,7 +16,7 @@ export function postsReducer(state = [], action) {
             return state.filter(post => post.id !== action.payload.id)
 
         case constants.ADD_POST:
-            return [...state, action.payload]
+            return [ action.payload, ...state]
         default:
             return state
     }

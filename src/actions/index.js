@@ -70,3 +70,30 @@ export const addPost = (title, body) => async dispatch => {
         payload: post,
     })
 }
+
+export const editComment = (id, name, body) => {
+  return {
+      type: constants.EDIT_COMMENT,
+      payload: {
+          id, name, body
+      }
+  }
+}
+
+export const deleteComment = id  => {
+    return {
+        type: constants.DELETE_COMMENT,
+        payload: id
+    }
+}
+
+export const addComment = (id, name, body) => {
+    return {
+        type: constants.ADD_COMMENT,
+        payload: {
+            id,
+            name,
+            body
+        }
+    }
+}
