@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
+import {shell} from 'electron';
 
 import { Post as PostComponent } from '../components/Post'
 import Comments from '../containers/Comments'
@@ -54,11 +55,16 @@ class Post extends Component {
         })
     }
 
+    handleButtonClick = () => {
+        shell.openExternal('https://github.com')
+    }
+
     render() {
         const { post, editPostId } = this.state
         return (
             <div>
-                <Link to="/">Go home </Link>
+                <div onClick={this.handleButtonClick}>open native browser </div>
+
                 {post && (
                     <>
                         <PostComponent

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchPosts, editPost, deletePost, fetchCommentsForPost, addPost, getMorePosts } from '../actions'
+import { fetchPosts, editPost, deletePost, fetchCommentsForPost, addPost, getMorePosts, searchSubmit } from '../actions'
 import { Link, withRouter } from 'react-router-dom'
 
 class App extends Component {
@@ -10,6 +10,7 @@ class App extends Component {
         addPostActive: false,
         newPostTitle: '',
         newPostBody: '',
+        searchInput: ''
     }
 
     componentDidMount() {
@@ -77,6 +78,15 @@ class App extends Component {
         getMorePosts()
     }
 
+    searchSubmit = () => {
+        const {searchSubmit, history} = this.props,
+            {searchInput} = this.state;
+
+        searchSubmit(searchInput)
+
+        history.push('/search')
+    }
+
     render() {
         const { editPostId, addPostActive } = this.state
 
@@ -85,6 +95,9 @@ class App extends Component {
                 <button className="btn" onClick={this.addNewPost}>
                     Add post
                 </button>
+
+                <input type="text" onChange={e => this.setState({searchInput: e.target.value})}/>
+                <button onClick={this.searchSubmit}>Search!</button>
 
                 {addPostActive && (
                     <div>
@@ -146,6 +159,6 @@ export default withRouter(
             posts: state.posts,
             comments: state.comments,
         }),
-        { fetchPosts, editPost, deletePost, fetchCommentsForPost, addPost, getMorePosts }
+        { fetchPosts, editPost, deletePost, fetchCommentsForPost, addPost, getMorePosts, searchSubmit }
     )(App)
 )

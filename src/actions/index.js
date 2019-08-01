@@ -15,7 +15,7 @@ export const fetchPosts = () => async dispatch => {
 
 export const fetchCommentsForPost = id => async dispatch => {
     try {
-        const { data } = await axios.get(`http://jsonplaceholder.typicode.com/posts/${id}/comments`)
+        const { data } = await axios.get(`http://jsonplaceholder.typicode.com/comments?postId=${id}`)
         return dispatch({
             type: constants.FETCH_COMMENTS_FOR_POST,
             payload: data,
@@ -72,28 +72,30 @@ export const addPost = (title, body) => async dispatch => {
 }
 
 export const editComment = (id, name, body) => {
-  return {
-      type: constants.EDIT_COMMENT,
-      payload: {
-          id, name, body
-      }
-  }
+    return {
+        type: constants.EDIT_COMMENT,
+        payload: {
+            id,
+            name,
+            body,
+        },
+    }
 }
 
-export const deleteComment = id  => {
+export const deleteComment = id => {
     return {
         type: constants.DELETE_COMMENT,
-        payload: id
+        payload: id,
     }
 }
-export const getMoreComments = ()  => {
+export const getMoreComments = () => {
     return {
-        type: constants.GET_MORE_COMMENTS
+        type: constants.GET_MORE_COMMENTS,
     }
 }
-export const getMorePosts = ()  => {
+export const getMorePosts = () => {
     return {
-        type: constants.GET_MORE_POSTS
+        type: constants.GET_MORE_POSTS,
     }
 }
 
@@ -103,7 +105,20 @@ export const addComment = (id, name, body) => {
         payload: {
             id,
             name,
-            body
-        }
+            body,
+        },
     }
+}
+
+export const searchSubmit = text => async dispatch => {
+    const { data } = await axios.get('http://jsonplaceholder.typicode.com/posts')
+    const { data: comments } = await axios.get('http://jsonplaceholder.typicode.com/comments')
+
+    dispatch({
+        type: constants.SEARCH_COMPLETED,
+        payload: {
+            data: [...data, ...comments],
+            query: text,
+        },
+    })
 }

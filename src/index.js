@@ -8,6 +8,8 @@ import ReduxThunk from 'redux-thunk'
 import reducers from './reducers'
 import App from './containers/App'
 import Post from './containers/Post'
+import Search from './containers/Search'
+import Header from './components/Header'
 
 import * as serviceWorker from './serviceWorker'
 
@@ -15,15 +17,17 @@ const store = createStore(
     reducers,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     applyMiddleware(ReduxThunk)
-);
+)
 
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             {window.location.pathname.includes('index.html') && <Redirect to="/" />}
+            <Route component={Header} />
             <Switch>
-                <Route exact path='/' component={App} />
+                <Route exact path="/" component={App} />
                 <Route path={'/post/:id'} component={Post} />
+                <Route path={'/search'} component={Search} />
             </Switch>
         </BrowserRouter>
     </Provider>,
