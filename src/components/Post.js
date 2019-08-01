@@ -1,17 +1,17 @@
 import React from 'react'
 
-export function Post({ title, body, active, clickHandler, editHandler, deleteHandler }) {
+export function Post({ title, body, clickHandler, editHandler, deleteHandler }) {
     return (
-        <div onClick={clickHandler}>
-            <h3>{title}</h3>
+        <div onClick={clickHandler} className='my-4'>
+            <h2>{title}</h2>
             <div>
                 {body}
                 {editHandler && deleteHandler && (
-                    <div>
-                        <button onClick={editHandler} className="btn">
+                    <div className='mt-3'>
+                        <button className="btn btn-outline-warning mr-3" onClick={editHandler}>
                             Edit
                         </button>
-                        <button onClick={deleteHandler} className="btn">
+                        <button className="btn btn-danger" onClick={deleteHandler}>
                             Delete
                         </button>
                     </div>

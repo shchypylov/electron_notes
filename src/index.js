@@ -1,15 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
 
+import Router from './components/Router';
+
 import reducers from './reducers'
-import App from './containers/App'
-import Post from './containers/Post'
-import Search from './containers/Search'
-import Header from './components/Header'
 
 import * as serviceWorker from './serviceWorker'
 
@@ -22,13 +20,7 @@ const store = createStore(
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-            {window.location.pathname.includes('index.html') && <Redirect to="/" />}
-            <Route component={Header} />
-            <Switch>
-                <Route exact path="/" component={App} />
-                <Route path={'/post/:id'} component={Post} />
-                <Route path={'/search'} component={Search} />
-            </Switch>
+            <Router />
         </BrowserRouter>
     </Provider>,
     document.getElementById('root')

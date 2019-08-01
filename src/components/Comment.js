@@ -3,7 +3,7 @@ import React from 'react'
 export function Comment({ title, body, email, editHandler, deleteHandler }) {
     return (
         <div style={{ padding: '20px', background: '#f9f' }}>
-            <h3>Written by: {email || 'anonymus'}</h3>
+            <h3>Written by: {email || 'anonymous'}</h3>
             <i>{title}</i>
             <p>{body}</p>
 

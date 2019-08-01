@@ -29,13 +29,13 @@ export function postsReducer(
         case constants.DELETE_POST:
             return {
                 ...state,
-                posts: state.filter(post => post.id !== action.payload.id),
+                posts: state.posts.filter(post => post.id !== action.payload.id),
             }
 
         case constants.ADD_POST:
             return {
                 ...state,
-                posts: [action.payload, ...state],
+                posts: [action.payload, ...state.posts],
             }
 
         case constants.GET_MORE_POSTS:

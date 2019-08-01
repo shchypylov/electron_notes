@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
-import {shell} from 'electron';
-
 import { Post as PostComponent } from '../components/Post'
 import Comments from '../containers/Comments'
+import { deletePost } from '../actions'
 
-import { editPost, deletePost } from '../actions'
+import Form from '../components/Form'
 
 class Post extends Component {
     state = {
@@ -55,16 +54,10 @@ class Post extends Component {
         })
     }
 
-    handleButtonClick = () => {
-        shell.openExternal('https://github.com')
-    }
-
     render() {
         const { post, editPostId } = this.state
         return (
             <div>
-                <div onClick={this.handleButtonClick}>open native browser </div>
-
                 {post && (
                     <>
                         <PostComponent
@@ -73,30 +66,10 @@ class Post extends Component {
                             deleteHandler={this.deletePost(post.id)}
                             editHandler={this.editPost(post.id)}
                         />
+                        {editPostId && <Form type="editPost" formIsVisible />}
+
                         <Comments id={post.id} />
                     </>
-                )}
-
-                {editPostId && (
-                    <div>
-                        <input
-                            onChange={e =>
-                                this.setState({
-                                    editPostTitle: e.target.value,
-                                })
-                            }
-                            type="text"
-                        />
-                        <input
-                            onChange={e =>
-                                this.setState({
-                                    editPostBody: e.target.value,
-                                })
-                            }
-                            type="text"
-                        />
-                        <button onClick={this.submitPostEdit}>Save</button>
-                    </div>
                 )}
             </div>
         )
@@ -108,6 +81,6 @@ export default withRouter(
         state => ({
             posts: state.posts,
         }),
-        { editPost, deletePost }
+        { deletePost }
     )(Post)
 )
