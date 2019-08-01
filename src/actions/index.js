@@ -25,7 +25,7 @@ export const fetchCommentsForPost = id => async dispatch => {
     }
 }
 
-export const editPost = (oldId, oldTitle, oldBody) => async dispatch => {
+export const editPost = (oldTitle, oldBody, oldId) => async dispatch => {
     const {
         data: { id, title, body },
     } = await axios.put(`http://jsonplaceholder.typicode.com/posts/${oldId}`, {
@@ -99,11 +99,10 @@ export const getMorePosts = () => {
     }
 }
 
-export const addComment = (id, name, body) => {
+export const addComment = (name, body, id) => {
     return {
         type: constants.ADD_COMMENT,
         payload: {
-            id,
             name,
             body,
         },

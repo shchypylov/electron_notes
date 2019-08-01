@@ -7,6 +7,8 @@ export function commentsReducer(
     },
     action
 ) {
+    console.log('action.type --- ', action.type)
+
     switch (action.type) {
         case constants.FETCH_COMMENTS_FOR_POST:
             return {
@@ -31,13 +33,13 @@ export function commentsReducer(
         case constants.ADD_COMMENT:
             return {
                 ...state,
-                comments: [action.payload, ...state],
+                comments: [action.payload, ...state.comments],
             }
 
         case constants.DELETE_COMMENT:
             return {
                 ...state,
-                comments: state.filter(comment => comment.id !== action.payload),
+                comments: state.comments.filter(comment => comment.id !== action.payload),
             }
 
         case constants.GET_MORE_COMMENTS:

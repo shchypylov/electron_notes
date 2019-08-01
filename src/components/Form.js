@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { addPost, editPost } from '../actions'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+
+import { addComment, addPost, editPost } from '../actions'
 
 const typeToInputPlaceholders = {
     addPost: {
@@ -10,6 +12,10 @@ const typeToInputPlaceholders = {
     editPost: {
         title: 'New title',
         content: 'New content',
+    },
+    addComment: {
+        title: 'Comment title',
+        content: 'Comment content',
     },
 }
 
@@ -28,15 +34,17 @@ class Form extends Component {
 
     submitNewValues = () => {
         const { newPostTitle: title, newPostBody: body } = this.state,
-            { addPost, type } = this.props
+            { addPost, editPost, addComment, type, id } = this.props
 
         switch (type) {
             case 'addPost':
                 addPost(title, body)
                 break
-
             case 'editPost':
-                editPost(title, body)
+                editPost(title, body, id)
+                break
+            case 'addComment':
+                addComment(title, body)
                 break
             default:
                 return true
@@ -54,17 +62,17 @@ class Form extends Component {
             { buttonTitle, type } = this.props
 
         return (
-            <div className="row mt-3">
+            <div className="row my-3">
                 <div className="col-8 mx-auto d-flex flex-column">
                     {buttonTitle && (
-                        <button className="btn btn-success mt-3 mx-auto" onClick={this.toggleFormVisibility}>
+                        <button className="btn btn-success my-3 mx-auto" onClick={this.toggleFormVisibility}>
                             {buttonTitle}
                         </button>
                     )}
 
                     {formIsVisible && (
                         <>
-                            <div className="form-group mt-3">
+                            <div className="form-group">
                                 <input
                                     className="form-control"
                                     placeholder={typeToInputPlaceholders[type].title}
@@ -99,7 +107,9 @@ class Form extends Component {
     }
 }
 
-export default connect(
-    null,
-    { addPost, editPost }
-)(Form)
+export default withRouter(
+    connect(
+        null,
+        { addPost, editPost, addComment }
+    )(Form)
+)

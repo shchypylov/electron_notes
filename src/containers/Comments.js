@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import { Comment } from '../components/Comment'
 
-import { fetchCommentsForPost, editComment, deleteComment, addComment, getMoreComments } from '../actions'
+import { fetchCommentsForPost, editComment, deleteComment, getMoreComments } from '../actions'
+import Form from '../components/Form'
 
 class Comments extends Component {
     state = {
         editCommentId: null,
         editCommentTitle: '',
         editCommentBody: '',
-        newCommentId: null,
     }
 
     componentDidMount() {
@@ -47,58 +48,22 @@ class Comments extends Component {
             editPostId: null,
         })
     }
-    submitCommentAdd = () => {
-        const { newCommentId, newCommentTitle, newCommentBody } = this.state,
-            { addComment } = this.props
-
-        addComment(newCommentId, newCommentTitle, newCommentBody)
-
-        this.setState({
-            newCommentId: null,
-        })
-    }
-
-    addNewComment = () => {
-        this.setState({
-            newCommentId: 501,
-        })
-    }
 
     getMoreComments = () => {
-        const {getMoreComments} = this.props;
+        const { getMoreComments } = this.props
 
         getMoreComments()
     }
 
     render() {
         const { comments } = this.props,
-            { editCommentId, newCommentId } = this.state
+            { editCommentId } = this.state
+
+        console.log('comments --- ', comments)
 
         return (
             <div>
-                <button onClick={this.addNewComment}>Add comment</button>
-
-                {newCommentId && (
-                    <div>
-                        <input
-                            onChange={e =>
-                                this.setState({
-                                    newCommentTitle: e.target.value,
-                                })
-                            }
-                            type="text"
-                        />
-                        <input
-                            onChange={e =>
-                                this.setState({
-                                    newCommentBody: e.target.value,
-                                })
-                            }
-                            type="text"
-                        />
-                        <button onClick={this.submitCommentAdd}>Save</button>
-                    </div>
-                )}
+                <Form buttonTitle="Add comment" type="addComment" />
                 {comments.comments.slice(0, comments.loaded).map(({ postId, id, email, name, body }) => {
                     return (
                         <div key={`${postId}_${id}`}>
@@ -139,9 +104,11 @@ class Comments extends Component {
     }
 }
 
-export default connect(
-    state => ({
-        comments: state.comments,
-    }),
-    { fetchCommentsForPost, editComment, deleteComment, addComment, getMoreComments }
-)(Comments)
+export default withRouter(
+    connect(
+        state => ({
+            comments: state.comments,
+        }),
+        { fetchCommentsForPost, editComment, deleteComment, getMoreComments }
+    )(Comments)
+)

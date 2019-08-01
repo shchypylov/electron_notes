@@ -66,7 +66,7 @@ class Post extends Component {
                             deleteHandler={this.deletePost(post.id)}
                             editHandler={this.editPost(post.id)}
                         />
-                        {editPostId && <Form type="editPost" formIsVisible />}
+                        {editPostId && <Form type="editPost" id={editPostId} formIsVisible />}
 
                         <Comments id={post.id} />
                     </>

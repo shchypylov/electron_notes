@@ -14,7 +14,7 @@ export function postsReducer(
                 posts: action.payload,
             }
         case constants.EDIT_POST:
-            const posts = state.map(post => {
+            const posts = state.posts.map(post => {
                 if (post.id === action.payload.id) {
                     post.title = action.payload.title
                     post.body = action.payload.body
