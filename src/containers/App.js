@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import Post from '../components/Post'
 import { fetchPosts, editPost, deletePost, fetchCommentsForPost, addPost } from '../actions'
+import Comment from '../components/Comment'
+import { Link, withRouter } from 'react-router-dom'
 
 class App extends Component {
     state = {
@@ -52,14 +54,8 @@ class App extends Component {
     renderComments = () => {
         const { comments } = this.props
 
-        return comments.map(({ postId, id, email, name, body }) => {
-            return (
-                <div key={`${postId}_${id}`}>
-                    <div>Written by: {email}</div>
-                    <div>{name}</div>
-                    <div>{body}</div>
-                </div>
-            )
+        return comments.slice(0, 20).map(({ postId, id, email, name, body }) => {
+            return <Comment title={name} body={body} email={email} key={`${postId}_${id}`} />
         })
     }
 
@@ -70,17 +66,18 @@ class App extends Component {
         return posts.map(post => {
             const { id, title, body } = post
             return (
-                <div key={id}>
-                    <Post
-                        title={title}
-                        body={body}
-                        editHandler={this.editPost(id)}
-                        deleteHandler={this.deletePost(id)}
-                        clickHandler={this.expandPost(id)}
-                        active={id === activePostId}
-                    />
-                    {this.renderComments()}
-                </div>
+                <Link
+                    style={{ display: 'block' }}
+                    to={{
+                        pathname: `/post/${id}`,
+                        state: {
+                            post,
+                        },
+                    }}
+                    key={id}
+                >
+                    {title}
+                </Link>
             )
         })
     }
@@ -103,7 +100,7 @@ class App extends Component {
     }
 
     submitNewPost = () => {
-        const { newPostTitle: title, newPostBody: body} = this.state,
+        const { newPostTitle: title, newPostBody: body } = this.state,
             { addPost } = this.props
 
         addPost(title, body)
@@ -113,7 +110,7 @@ class App extends Component {
         const { editPostId, addPostActive } = this.state
 
         return (
-            <div style={{ background: '#000' }}>
+            <div>
                 <button className="btn" onClick={this.addNewPost}>
                     Add post
                 </button>
@@ -170,10 +167,12 @@ class App extends Component {
     }
 }
 
-export default connect(
-    state => ({
-        posts: state.posts,
-        comments: state.comments,
-    }),
-    { fetchPosts, editPost, deletePost, fetchCommentsForPost, addPost }
-)(App)
+export default withRouter(
+    connect(
+        state => ({
+            posts: state.posts,
+            comments: state.comments,
+        }),
+        { fetchPosts, editPost, deletePost, fetchCommentsForPost, addPost }
+    )(App)
+)
