@@ -86,6 +86,16 @@ export const deleteComment = id  => {
         payload: id
     }
 }
+export const getMoreComments = ()  => {
+    return {
+        type: constants.GET_MORE_COMMENTS
+    }
+}
+export const getMorePosts = ()  => {
+    return {
+        type: constants.GET_MORE_POSTS
+    }
+}
 
 export const addComment = (id, name, body) => {
     return {

@@ -1,12 +1,21 @@
 import * as constants from '../constants'
 
-export function commentsReducer(state = [], action) {
+export function commentsReducer(
+    state = {
+        comments: [],
+        loaded: 20,
+    },
+    action
+) {
     switch (action.type) {
         case constants.FETCH_COMMENTS_FOR_POST:
-            return action.payload
+            return {
+                ...state,
+                comments: action.payload,
+            }
 
         case constants.EDIT_COMMENT:
-            return state.map(comment => {
+            const comments = state.map(comment => {
                 if (comment.id === action.payload.id) {
                     comment.name = action.payload.name
                     comment.body = action.payload.body
@@ -14,12 +23,28 @@ export function commentsReducer(state = [], action) {
 
                 return comment
             })
+            return {
+                ...state,
+                comments,
+            }
 
         case constants.ADD_COMMENT:
-            return [action.payload, ...state]
+            return {
+                ...state,
+                comments: [action.payload, ...state],
+            }
 
         case constants.DELETE_COMMENT:
-            return state.filter(comment => comment.id !== action.payload)
+            return {
+                ...state,
+                comments: state.filter(comment => comment.id !== action.payload),
+            }
+
+        case constants.GET_MORE_COMMENTS:
+            return {
+                ...state,
+                loaded: state.loaded + 20,
+            }
         default:
             return state
     }

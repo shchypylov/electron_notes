@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 
 import { Comment } from '../components/Comment'
 
-import { fetchCommentsForPost, editComment, deleteComment, addComment } from '../actions'
+import { fetchCommentsForPost, editComment, deleteComment, addComment, getMoreComments } from '../actions'
 
 class Comments extends Component {
     state = {
         editCommentId: null,
         editCommentTitle: '',
         editCommentBody: '',
-        newCommentId: null
+        newCommentId: null,
     }
 
     componentDidMount() {
@@ -58,43 +58,48 @@ class Comments extends Component {
         })
     }
 
-
-    
-
     addNewComment = () => {
         this.setState({
-            newCommentId: 501
+            newCommentId: 501,
         })
+    }
+
+    getMoreComments = () => {
+        const {getMoreComments} = this.props;
+
+        getMoreComments()
     }
 
     render() {
         const { comments } = this.props,
-            { editCommentId, newCommentId } = this.state;
+            { editCommentId, newCommentId } = this.state
 
         return (
             <div>
                 <button onClick={this.addNewComment}>Add comment</button>
 
-                {newCommentId && <div>
-                                    <input
-                                        onChange={e =>
-                                            this.setState({
-                                                newCommentTitle: e.target.value,
-                                            })
-                                        }
-                                        type="text"
-                                    />
-                                    <input
-                                        onChange={e =>
-                                            this.setState({
-                                                newCommentBody: e.target.value,
-                                            })
-                                        }
-                                        type="text"
-                                    />
-                                    <button onClick={this.submitCommentAdd}>Save</button>
-                                </div>}
-                {comments.slice(0, 20).map(({ postId, id, email, name, body }) => {
+                {newCommentId && (
+                    <div>
+                        <input
+                            onChange={e =>
+                                this.setState({
+                                    newCommentTitle: e.target.value,
+                                })
+                            }
+                            type="text"
+                        />
+                        <input
+                            onChange={e =>
+                                this.setState({
+                                    newCommentBody: e.target.value,
+                                })
+                            }
+                            type="text"
+                        />
+                        <button onClick={this.submitCommentAdd}>Save</button>
+                    </div>
+                )}
+                {comments.comments.slice(0, comments.loaded).map(({ postId, id, email, name, body }) => {
                     return (
                         <div key={`${postId}_${id}`}>
                             <Comment
@@ -128,6 +133,7 @@ class Comments extends Component {
                         </div>
                     )
                 })}
+                <button onClick={this.getMoreComments}>Get more comments</button>
             </div>
         )
     }
@@ -137,5 +143,5 @@ export default connect(
     state => ({
         comments: state.comments,
     }),
-    { fetchCommentsForPost, editComment, deleteComment, addComment }
+    { fetchCommentsForPost, editComment, deleteComment, addComment, getMoreComments }
 )(Comments)

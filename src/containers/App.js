@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchPosts, editPost, deletePost, fetchCommentsForPost, addPost } from '../actions'
+import { fetchPosts, editPost, deletePost, fetchCommentsForPost, addPost, getMorePosts } from '../actions'
 import { Link, withRouter } from 'react-router-dom'
 
 class App extends Component {
@@ -30,13 +30,11 @@ class App extends Component {
         })
     }
 
-
     renderPosts = () => {
-        const { posts } = this.props,
-            { activePostId } = this.state
+        const { posts } = this.props
 
-        return posts.map(post => {
-            const { id, title, body } = post
+        return posts.posts.slice(0, posts.loaded).map(post => {
+            const { id, title } = post
             return (
                 <Link
                     style={{ display: 'block' }}
@@ -69,8 +67,14 @@ class App extends Component {
         this.setState({
             newPostTitle: '',
             newPostBody: '',
-            addPostActive: false
+            addPostActive: false,
         })
+    }
+
+    getMorePosts = () => {
+        const { getMorePosts } = this.props
+
+        getMorePosts()
     }
 
     render() {
@@ -129,6 +133,8 @@ class App extends Component {
                         <button onClick={this.saveChanges}>Save</button>
                     </div>
                 )}
+
+                <button onClick={this.getMorePosts}>Get more comments</button>
             </div>
         )
     }
@@ -140,6 +146,6 @@ export default withRouter(
             posts: state.posts,
             comments: state.comments,
         }),
-        { fetchPosts, editPost, deletePost, fetchCommentsForPost, addPost }
+        { fetchPosts, editPost, deletePost, fetchCommentsForPost, addPost, getMorePosts }
     )(App)
 )
