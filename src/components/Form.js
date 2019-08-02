@@ -38,7 +38,7 @@ class Form extends Component {
 
     submitNewValues = () => {
         const { newPostTitle: title, newPostBody: body } = this.state,
-            { addPost, editPost, addComment, editComment, type, id } = this.props
+            { addPost, editPost, addComment, editComment, type, id, foreignId } = this.props
 
         switch (type) {
             case 'addPost':
@@ -48,7 +48,7 @@ class Form extends Component {
                 editPost(title, body, id)
                 break
             case 'addComment':
-                addComment(title, body, id)
+                addComment(title, body, id, foreignId)
                 break
             case 'editComment':
                 editComment(title, body, id)

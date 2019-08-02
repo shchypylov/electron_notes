@@ -21,7 +21,10 @@ export const fetchCommentsForPost = id => async dispatch => {
             payload: data,
         })
     } catch (e) {
-        console.log(e)
+        return dispatch({
+            type: constants.FETCH_COMMENTS_FOR_POST,
+            payload: [],
+        })
     }
 }
 
@@ -129,13 +132,14 @@ export const resetSearchLoaded = () => {
     }
 }
 
-export const addComment = (name, body, id) => {
+export const addComment = (name, body, id, foreignId) => {
     return {
         type: constants.ADD_COMMENT,
         payload: {
             name,
             body,
-            id
+            id,
+            postId: foreignId,
         },
     }
 }

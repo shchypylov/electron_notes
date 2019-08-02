@@ -31,6 +31,7 @@ export function commentsReducer(
             }
 
         case constants.ADD_COMMENT:
+            console.log(' --- ', action.payload);
             return {
                 ...state,
                 comments: [action.payload, ...state.comments],

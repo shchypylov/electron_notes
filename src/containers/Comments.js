@@ -38,17 +38,6 @@ class Comments extends Component {
         deleteComment(id)
     }
 
-    submitCommentEdit = () => {
-        const { editCommentId, editCommentTitle, editCommentBody } = this.state,
-            { editComment } = this.props
-
-        editComment(editCommentId, editCommentTitle, editCommentBody)
-
-        this.setState({
-            editPostId: null,
-        })
-    }
-
     getMoreComments = () => {
         const { getMoreComments } = this.props
 
@@ -56,17 +45,18 @@ class Comments extends Component {
     }
 
     render() {
-        const { comments } = this.props,
-            { editCommentId } = this.state
+        const { comments, id } = this.props,
+            { editCommentId } = this.state,
+            items = comments.comments.filter(item => item.postId === id).slice(0, comments.loaded)
 
         return (
             <>
-                <Form buttonTitle="Add comment" type="addComment" id={comments.currentCommentId} />
+                <Form buttonTitle="Add comment" type="addComment" id={comments.currentCommentId} foreignId={id} />
 
                 <div className="list-group">
-                    {comments.comments.slice(0, comments.loaded).map(({ postId, id, email, name, body }) => {
+                    {items.map(({ postId, id, email, name, body }) => {
                         return (
-                            <div key={`${postId}_${id}`} className='list-group-item'>
+                            <div key={`${postId}_${id}`} className="list-group-item">
                                 <Comment
                                     editHandler={this.editHandler(id)}
                                     deleteHandler={this.deleteHandler(id)}
@@ -79,7 +69,7 @@ class Comments extends Component {
                         )
                     })}
 
-                    {comments.comments.length > 20 && (
+                    {items.length > 20 && (
                         <button className="btn btn-info my-3 mx-auto" onClick={this.getMoreComments}>
                             Get more comments
                         </button>
