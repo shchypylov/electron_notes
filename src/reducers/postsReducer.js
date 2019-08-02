@@ -4,6 +4,7 @@ export function postsReducer(
     state = {
         posts: [],
         loaded: 10,
+        currentPostId: 0,
     },
     action
 ) {
@@ -12,6 +13,7 @@ export function postsReducer(
             return {
                 ...state,
                 posts: action.payload,
+                currentPostId: action.payload[action.payload.length - 1].id + 1,
             }
         case constants.EDIT_POST:
             const posts = state.posts.map(post => {
@@ -36,6 +38,7 @@ export function postsReducer(
             return {
                 ...state,
                 posts: [action.payload, ...state.posts],
+                currentPostId: state.currentPostId + 1,
             }
 
         case constants.GET_MORE_POSTS:

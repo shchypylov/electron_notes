@@ -42,13 +42,13 @@ class Form extends Component {
 
         switch (type) {
             case 'addPost':
-                addPost(title, body)
+                addPost(title, body, id)
                 break
             case 'editPost':
                 editPost(title, body, id)
                 break
             case 'addComment':
-                addComment(title, body)
+                addComment(title, body, id)
                 break
             case 'editComment':
                 editComment(title, body, id)
@@ -78,7 +78,7 @@ class Form extends Component {
                     )}
 
                     {formIsVisible && (
-                        <>
+                        <div className="bg-warning text-dark p-3 d-flex flex-column mb-3">
                             <div className="form-group">
                                 <input
                                     className="form-control"
@@ -106,7 +106,7 @@ class Form extends Component {
                             <button className="btn btn-primary mx-auto mb-3" onClick={this.submitNewValues}>
                                 Submit
                             </button>
-                        </>
+                        </div>
                     )}
                 </div>
             </div>

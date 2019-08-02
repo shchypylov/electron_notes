@@ -4,6 +4,7 @@ export function commentsReducer(
     state = {
         comments: [],
         loaded: 20,
+        currentCommentId: 0,
     },
     action
 ) {
@@ -12,6 +13,7 @@ export function commentsReducer(
             return {
                 ...state,
                 comments: action.payload,
+                currentCommentId: action.payload[action.payload.length - 1].id + 1,
             }
 
         case constants.EDIT_COMMENT:
@@ -32,6 +34,7 @@ export function commentsReducer(
             return {
                 ...state,
                 comments: [action.payload, ...state.comments],
+                currentCommentId: state.currentCommentId + 1,
             }
 
         case constants.DELETE_COMMENT:

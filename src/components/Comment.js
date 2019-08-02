@@ -24,5 +24,3 @@ export function Comment({ title, body, email, editHandler, deleteHandler }) {
 
 // todo:
 // ids for added posts and comments
-// pesistence on reload
-// solve issue with mount new posts

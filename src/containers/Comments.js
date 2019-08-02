@@ -61,7 +61,7 @@ class Comments extends Component {
 
         return (
             <>
-                <Form buttonTitle="Add comment" type="addComment" />
+                <Form buttonTitle="Add comment" type="addComment" id={comments.currentCommentId} />
 
                 <div className="list-group">
                     {comments.comments.slice(0, comments.loaded).map(({ postId, id, email, name, body }) => {

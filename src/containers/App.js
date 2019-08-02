@@ -7,7 +7,11 @@ import Form from '../components/Form'
 
 class App extends Component {
     componentDidMount() {
-        this.fetchPosts()
+        const { posts } = this.props
+
+        if (posts.posts.length === 0) {
+            this.fetchPosts()
+        }
     }
 
     fetchPosts = () => {
@@ -48,7 +52,7 @@ class App extends Component {
 
         return (
             <div className="d-flex flex-column">
-                <Form buttonTitle="Add post" type="addPost" />
+                <Form buttonTitle="Add post" type="addPost" id={posts.currentPostId} />
 
                 <div className="alert alert-primary text-center my-3">
                     <h2>Posts</h2>
