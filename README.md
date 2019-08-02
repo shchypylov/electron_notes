@@ -27,6 +27,6 @@ in the directory with the app: `yarn electron-pack` and then navigate to `/dist/
 -   There were no links neither in posts nor in comments, so I have added link Developex in footer, where you can try native browser
 
 #### Final word:
-I hope you will be glad with result I had delivered. 
+I hope you will enjoy results I had delivered. 
 
-If you will have any questions about the code or implementation, feel free to reach me via email: [shchypylov@gmail.com](mailto:shchypylov@gmail.com) or via [telegram](https://t.me/shchypylov)
+If you will have any questions about the code or implementation, feel free to reach me via [email](mailto:shchypylov@gmail.com) or [telegram](https://t.me/shchypylov)
