@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { shell } from 'electron'
 
 import { searchSubmit } from '../actions'
 
@@ -39,9 +38,6 @@ class Header extends Component {
                         Search
                     </button>
                 </div>
-                <a href="#" onClick={() => shell.openExternal('https://developex.com/')}>
-                    Developex
-                </a>
             </nav>
         )
     }

@@ -21,8 +21,6 @@ class Comments extends Component {
     fetchComments = () => {
         const { fetchCommentsForPost, id } = this.props
 
-        if (id) {
-        }
         fetchCommentsForPost(id)
     }
 
@@ -48,6 +46,8 @@ class Comments extends Component {
         const { comments, id } = this.props,
             { editCommentId } = this.state,
             items = comments.comments.filter(item => item.postId === id).slice(0, comments.loaded)
+
+        console.log('comments --- ', comments);
 
         return (
             <>

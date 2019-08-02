@@ -18,9 +18,15 @@ in the directory with the app: `yarn electron-pack` and then navigate to `/dist/
 4. Redux as unidirectional state management
 5. ReduxThunk for async actions
 6. Axios as HTTP client
+7. React-router-dom as router
 
 ### Take account of:
 
--   Due to API limitation I was not able to setup proper CRUD for both posts and comments, so I added local ID counters
+-   Please note that due to API limitation I was not able to setup proper CRUD for both posts and comments, so there are few bugs with adding comments to manually added posts, fetching them, etc. I am aware of them, but fixing them in current environment will lead to huge spaghetti if/else code. I hope, this minor issue won't affect your opinion about final result.
 -   API lacks long-polling requests possibility (or any other way for lazy loading) lazy loading was implemented on front-end
--   There were no links neither in posts nor in comments, so I have added link Developex in header, where you can try native browser
+-   There were no links neither in posts nor in comments, so I have added link Developex in footer, where you can try native browser
+
+#### Final word:
+I hope you will be glad with result I had delivered. 
+
+If you will have any questions about the code or implementation, feel free to reach me via email: [shchypylov@gmail.com](mailto:shchypylov@gmail.com) or via [telegram](https://t.me/shchypylov)

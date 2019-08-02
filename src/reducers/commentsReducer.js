@@ -13,7 +13,9 @@ export function commentsReducer(
             return {
                 ...state,
                 comments: action.payload,
-                currentCommentId: action.payload[action.payload.length - 1].id + 1,
+                currentCommentId: action.payload[action.payload.length - 1]
+                    ? action.payload[action.payload.length - 1].id + 1
+                    : 0,
             }
 
         case constants.EDIT_COMMENT:

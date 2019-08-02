@@ -2,6 +2,7 @@ import Header from '../containers/Header'
 import App from '../containers/App'
 import Post from '../containers/Post'
 import Search from '../containers/Search'
+import Footer from '../components/Footer';
 import { Redirect, Route, Switch } from 'react-router-dom'
 import React from 'react'
 
@@ -15,6 +16,7 @@ export default function Router() {
                 <Route path={'/post/:id'} component={Post} />
                 <Route path={'/search'} component={Search} />
             </Switch>
+            <Route component={Footer} />
         </div>
     )
 }
