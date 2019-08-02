@@ -1,4 +1,4 @@
-import * as constants from '../constants'
+import * as constants from '../constants';
 
 export function postsReducer(
     state = {
@@ -10,6 +10,8 @@ export function postsReducer(
 ) {
     switch (action.type) {
         case constants.FETCH_POSTS:
+
+
             return {
                 ...state,
                 posts: action.payload,

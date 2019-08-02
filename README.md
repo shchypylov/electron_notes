@@ -23,3 +23,4 @@ in the directory with the app: `yarn electron-pack` and then navigate to `/dist/
 
 -   Due to API limitation I was not able to setup proper CRUD for both posts and comments, so I added local ID counters
 -   API lacks long-polling requests possibility (or any other way for lazy loading) lazy loading was implemented on front-end
+-   There were no links neither in posts nor in comments, so I have added link Developex in header, where you can try native browser
