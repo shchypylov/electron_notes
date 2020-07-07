@@ -59,7 +59,7 @@
     "@rescripts/cli": "^0.0.10",
     "@rescripts/rescript-env": "^0.0.5",
     "concurrently": "^4.1.0",
-    "electron": "^4.0.6",
+    "electron": "^7.2.4",
     "electron-builder": "^20.38.5",
     "prettier": "1.18.2",
     "typescript": "^3.3.3333",
